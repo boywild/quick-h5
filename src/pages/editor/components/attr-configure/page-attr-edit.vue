@@ -4,40 +4,43 @@
     <div class="attr-item-edit-wrapper">
       <p class="attr-item-title">背景颜色：</p>
       <div class="attr-item-edit-input no-top">
-        <el-color-picker size="mini" :show-alpha="true"
-                         v-model="activePage.commonStyle.backgroundColor"></el-color-picker>
+        <el-color-picker
+          v-model="activePage.commonStyle.backgroundColor"
+          size="mini"
+          :show-alpha="true"
+        ></el-color-picker>
       </div>
     </div>
     <div class="attr-item-edit-wrapper">
       <p class="attr-item-title">背景图片：</p>
       <div class="attr-item-edit-input">
-        <imageSelect :url.sync="activePage.commonStyle.backgroundImage" />
+        <imageSelect v-model:url="activePage.commonStyle.backgroundImage" />
       </div>
     </div>
   </el-scrollbar>
 </template>
 
 <script>
-	import {mapState, mapGetters} from 'vuex'
-	import imageSelect from '@/components/image-select'
-	export default {
-		components: {
-			imageSelect
-		},
-		computed: {
-			...mapState({
-				projectData: state => state.editor.projectData,
-				activePageUUID: state => state.editor.activePageUUID,
-				activeElementUUID: state => state.editor.activeElementUUID
-			}),
-			...mapGetters([
-				'currentPageIndex',
-				'activeElementIndex',
-				'activeElement',
-        'activePage'
-			])
-		},
-	}
+import { mapState, mapGetters } from 'vuex'
+import imageSelect from '@/components/image-select'
+export default {
+  components: {
+    imageSelect
+  },
+  computed: {
+    ...mapState({
+      projectData: state => state.editor.projectData,
+      activePageUUID: state => state.editor.activePageUUID,
+      activeElementUUID: state => state.editor.activeElementUUID
+    }),
+    ...mapGetters([
+      'currentPageIndex',
+      'activeElementIndex',
+      'activeElement',
+      'activePage'
+    ])
+  }
+}
 </script>
 
 <style lang="scss" scoped>

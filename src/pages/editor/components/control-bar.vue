@@ -7,7 +7,7 @@
       <span class="scale-btn" @click="updateScale('reduce')">
         <i class="el-icon-zoom-out"></i>
       </span>
-      <span class="scale-input">{{parseFloat(scaleValue * 100).toFixed(0)}}%</span>
+      <span class="scale-input">{{ parseFloat(scaleValue * 100).toFixed(0) }}%</span>
       <span class="scale-btn" @click="updateScale('plus')">
         <i class="el-icon-zoom-in"></i>
       </span>
@@ -31,12 +31,12 @@
       <p>预览保存</p>
     </div>
     <!--<div class="button-item" @click="save">-->
-      <!--<i class="iconfont iconbaocun"></i>-->
-      <!--<p>保存</p>-->
+    <!--<i class="iconfont iconbaocun"></i>-->
+    <!--<p>保存</p>-->
     <!--</div>-->
     <!--<div class="button-item" @click="publishFn">-->
-      <!--<i class="iconfont iconfabu"></i>-->
-      <!--<p>发布</p>-->
+    <!--<i class="iconfont iconfabu"></i>-->
+    <!--<p>发布</p>-->
     <!--</div>-->
     <div class="button-item" @click="cancelFn">
       <i class="iconfont icontuichu"></i>
@@ -46,86 +46,86 @@
 </template>
 
 <script>
-	import {mapGetters, mapActions} from 'vuex'
-	import UploadPsd from '@/components/upload-psd'
-	export default {
-		components: {
-			UploadPsd
+import { mapGetters, mapActions } from 'vuex'
+import UploadPsd from '@/components/upload-psd'
+export default {
+  components: {
+    UploadPsd
+  },
+  props: {
+    // 是否loading
+    loading: {
+      type: Boolean,
+      default: false
     },
-		props: {
-			// 是否loading
-			loading: {
-				type: Boolean,
-				default: false
-			},
-			scale: {
-				type: Number,
-				default: 1
-			}
-		},
-		data() {
-			return {
-				// 画板缩放
-				scaleValue: 1
-			}
-		},
-		computed: {
-			...mapGetters([
-				'canUndo',
-				'canRedo'
-			])
-		},
-		created() {
-			this.scaleValue = this.scale;
-		},
-		methods: {
-			...mapActions([
-				'editorUndo',
-				'editorRedo'
-			]),
-			/**
+    scale: {
+      type: Number,
+      default: 1
+    }
+  },
+  data() {
+    return {
+      // 画板缩放
+      scaleValue: 1
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'canUndo',
+      'canRedo'
+    ])
+  },
+  created() {
+    this.scaleValue = this.scale
+  },
+  methods: {
+    ...mapActions([
+      'editorUndo',
+      'editorRedo'
+    ]),
+    /**
 			 * 更新画板大小
 			 */
-			updateScale(type, value) {
-				if (type === 'plus') {
-					this.scaleValue = this.scaleValue + (value || 0.1) > 2 ? 2 : this.scaleValue + (value || 0.1)
-				} else if (type === 'reduce') {
-					this.scaleValue = this.scaleValue - (value || 0.1) > 0.5 ? this.scaleValue - (value || 0.1) : 0.5;
-				} else if (type === 'reset') {
-					this.scaleValue = value || 1;
-				}
+    updateScale(type, value) {
+      if (type === 'plus') {
+        this.scaleValue = this.scaleValue + (value || 0.1) > 2 ? 2 : this.scaleValue + (value || 0.1)
+      } else if (type === 'reduce') {
+        this.scaleValue = this.scaleValue - (value || 0.1) > 0.5 ? this.scaleValue - (value || 0.1) : 0.5
+      } else if (type === 'reset') {
+        this.scaleValue = value || 1
+      }
 
-				this.$emit('update:scale', this.scaleValue)
-			},
-      /**
+      this.$emit('update:scale', this.scaleValue)
+    },
+    /**
        * 获取psd数据
        */
-			uploadSuccessPsd(dataList){
-        this.$emit('import-psd-data', dataList)
-      },
-			/**
+    uploadSuccessPsd(dataList) {
+      this.$emit('import-psd-data', dataList)
+    },
+    /**
 			 * 点击保存按钮
 			 */
-			save() {
-				this.$emit('save')
-			},
-			/**
+    save() {
+      this.$emit('save')
+    },
+    /**
        * 显示预览
 			 */
-			showPreview(){
-				this.$emit('showPreview')
-      },
-			/**
+    showPreview() {
+      this.$emit('showPreview')
+    },
+    /**
 			 * 发布
 			 */
-			publishFn(){
-				this.$emit('publish')
-      },
-			cancelFn(){
-				this.$emit('cancel')
-      }
-		}
-	}
+    publishFn() {
+      this.$emit('publish')
+    },
+    cancelFn() {
+      this.$emit('cancel')
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

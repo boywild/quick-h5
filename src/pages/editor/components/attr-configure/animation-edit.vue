@@ -1,43 +1,51 @@
 <template>
   <div class="components-attr-edit components-attr-animate-edit">
     <el-scrollbar class="components-attr-edit">
-      <div class="attr-edit-inner" v-if="activeElementUUID">
+      <div v-if="activeElementUUID" class="attr-edit-inner">
         <div class="animate-edit-btn-wrapper">
           <el-button type="primary" icon="el-icon-plus" size="small" @click="addAnimate">添加动画</el-button>
           <el-button icon="el-icon-caret-right" size="small" @click="runAnimate(undefined)">预览动画</el-button>
         </div>
-        <div class="el-animate-list-wrapper paddingT20" v-show="activeElement.animations.length">
+        <div v-show="activeElement.animations.length" class="el-animate-list-wrapper paddingT20">
           <el-collapse accordion>
             <el-collapse-item v-for="(item, index) in activeElement.animations" :key="index">
-              <template slot="title">
-                <span class="el-animate-title-name">动画 {{index}}</span>
+              <template #title>
+                <span class="el-animate-title-name">动画 {{ index }}</span>
                 <div class="el-animate-title-type-wrapper">
-                  <span class="el-animate-title-type" @click.stop.prevent="handleShowChooseAnimatePanel(index)">{{item.type}}  <i
-                          class="el-icon-caret-right size-mini"></i> </span>
+                  <span class="el-animate-title-type" @click.stop.prevent="handleShowChooseAnimatePanel(index)">{{ item.type }}  <i
+                    class="el-icon-caret-right size-mini"
+                  ></i> </span>
                 </div>
                 <span class="el-animate-title-btn" @click.stop.prevent="runAnimate(index)"><i
-                        class="el-icon-caret-right"></i></span>
+                  class="el-icon-caret-right"
+                ></i></span>
                 <span class="el-animate-title-btn" @click.stop.prevent="handleDeleteAnimate"><i
-                        class="el-icon-delete"></i></span>
+                  class="el-icon-delete"
+                ></i></span>
               </template>
               <div class="el-animate-item">
                 <div class="attr-item-edit-wrapper">
                   <p class="attr-item-title">动画时长：</p>
                   <div class="col-2 attr-item-edit-input">
-                    <el-input-number size="mini" v-model="item.duration" controls-position="right" :min="0"
-                                     :step="0.1"/>
+                    <el-input-number
+                      v-model="item.duration"
+                      size="mini"
+                      controls-position="right"
+                      :min="0"
+                      :step="0.1"
+                    />
                   </div>
                 </div>
                 <div class="attr-item-edit-wrapper">
                   <p class="attr-item-title">动画延迟：</p>
                   <div class="col-2  attr-item-edit-input">
-                    <el-input-number size="mini" v-model="item.delay" controls-position="right" :min="0" :step="0.1"/>
+                    <el-input-number v-model="item.delay" size="mini" controls-position="right" :min="0" :step="0.1" />
                   </div>
                 </div>
                 <div class="attr-item-edit-wrapper">
                   <p class="attr-item-title">循环次数：</p>
                   <div class="col-2 attr-item-edit-input">
-                    <el-input-number size="mini" v-model="item.interationCount" controls-position="right"/>
+                    <el-input-number v-model="item.interationCount" size="mini" controls-position="right" />
                     <div class="attr-item-edit-input-des">次数</div>
                   </div>
                   <div class="col-2 attr-item-edit-input">
@@ -54,22 +62,27 @@
       </div>
     </el-scrollbar>
 
-    <div class="components-attr-edit animate-choose-list-wrapper"
-         :class="{fadeInUp: showAnimatePanel, fadeInDown: !showAnimatePanel, animate: showAnimatePanel}">
+    <div
+      class="components-attr-edit animate-choose-list-wrapper"
+      :class="{fadeInUp: showAnimatePanel, fadeInDown: !showAnimatePanel, animate: showAnimatePanel}"
+    >
       <el-tabs v-model="activeName">
         <el-tab-pane v-for="item in animateCssDatas" :key="item.label" :label="item.label" :name="item.label">
           <el-scrollbar class="animate-choose-item">
             <div
-                    class="animate-choose-item-inner"
-                    v-for="(animate, index) in item.children"
-                    :key="index"
-                    @mouseover="hoverPreviewAnimate = animate.value"
-                    @mouseleave="hoverPreviewAnimate = ''"
-                    @click="handleChooseAnimate(animate)">
-              <span class="animate-choose-image"
-                    :style="{backgroundPosition: `${item.bg_X}px ${item.bg_Y}px`}"
-                    :class="[hoverPreviewAnimate === animate.value && animate.value + ' animated']"></span>
-              <p>{{animate.label}}</p>
+              v-for="(animate, index) in item.children"
+              :key="index"
+              class="animate-choose-item-inner"
+              @mouseover="hoverPreviewAnimate = animate.value"
+              @mouseleave="hoverPreviewAnimate = ''"
+              @click="handleChooseAnimate(animate)"
+            >
+              <span
+                class="animate-choose-image"
+                :style="{backgroundPosition: `${item.bg_X}px ${item.bg_Y}px`}"
+                :class="[hoverPreviewAnimate === animate.value && animate.value + ' animated']"
+              ></span>
+              <p>{{ animate.label }}</p>
             </div>
           </el-scrollbar>
         </el-tab-pane>
@@ -79,80 +92,80 @@
 </template>
 
 <script>
-	import animateCssData from '@/common/animateCssData'
-	import {mapState, mapGetters} from 'vuex'
-	import Bus from '@/eventBus'
+import animateCssData from '@/common/animateCssData'
+import { mapState, mapGetters } from 'vuex'
+import Bus from '@/eventBus'
 
-	export default {
-		data() {
-			return {
-				animateCssDatas: animateCssData,
-				activeName: '进入',
-				showAnimatePanel: false,
-				reSelectAnimateIndex: undefined,
-				hoverPreviewAnimate: ''
-			}
-		},
-		computed: {
-			...mapState({
-				projectData: state => state.editor.projectData,
-				activePageUUID: state => state.editor.activePageUUID,
-				activeElementUUID: state => state.editor.activeElementUUID
-			}),
-			...mapGetters([
-				'currentPageIndex',
-				'activeElementIndex',
-				'activeElement'
-			])
-		},
-		watch: {
-			activePageUUID() {
-				// 关闭选择动画弹窗
-				this.addAnimate(false);
-			},
-			activeElementUUID() {
-				// 关闭选择动画弹窗
-				this.addAnimate(false);
-			}
-		},
-		methods: {
-			/**
+export default {
+  data() {
+    return {
+      animateCssDatas: animateCssData,
+      activeName: '进入',
+      showAnimatePanel: false,
+      reSelectAnimateIndex: undefined,
+      hoverPreviewAnimate: ''
+    }
+  },
+  computed: {
+    ...mapState({
+      projectData: state => state.editor.projectData,
+      activePageUUID: state => state.editor.activePageUUID,
+      activeElementUUID: state => state.editor.activeElementUUID
+    }),
+    ...mapGetters([
+      'currentPageIndex',
+      'activeElementIndex',
+      'activeElement'
+    ])
+  },
+  watch: {
+    activePageUUID() {
+      // 关闭选择动画弹窗
+      this.addAnimate(false)
+    },
+    activeElementUUID() {
+      // 关闭选择动画弹窗
+      this.addAnimate(false)
+    }
+  },
+  methods: {
+    /**
 			 * 选取animate
 			 * @param item
 			 */
-			handleChooseAnimate(item) {
-				this.showAnimatePanel = false;
-				if (this.reSelectAnimateIndex === undefined) {
-					this.$store.dispatch('addElementAnimate', item.value)
-				} else {
-					this.activeElement.animations[this.reSelectAnimateIndex].type = item.value;
-					this.$store.dispatch('addHistoryCache')
-				}
-			},
-			/**
+    handleChooseAnimate(item) {
+      this.showAnimatePanel = false
+      if (this.reSelectAnimateIndex === undefined) {
+        this.$store.dispatch('addElementAnimate', item.value)
+      } else {
+        this.activeElement.animations[this.reSelectAnimateIndex].type = item.value
+        this.$store.dispatch('addHistoryCache')
+      }
+    },
+    /**
 			 * 删除动画
 			 * @param index
 			 */
-			handleDeleteAnimate(index) {
-				this.$store.dispatch('deleteElementAnimate', index)
-			},
-			addAnimate(showAnimatePanel = true) {
-				this.showAnimatePanel = showAnimatePanel;
-				this.reSelectAnimateIndex = undefined;
-			},
-			handleShowChooseAnimatePanel(index) {
-				this.reSelectAnimateIndex = index;
-				this.showAnimatePanel = true;
-			},
-			/**
+    handleDeleteAnimate(index) {
+      this.$store.dispatch('deleteElementAnimate', index)
+    },
+    addAnimate(showAnimatePanel = true) {
+      this.showAnimatePanel = showAnimatePanel
+      this.reSelectAnimateIndex = undefined
+    },
+    handleShowChooseAnimatePanel(index) {
+      this.reSelectAnimateIndex = index
+      this.showAnimatePanel = true
+    },
+    /**
 			 * 执行此条动画效果
 			 */
-			runAnimate(index) {
-				let animationData = index === undefined ? this.activeElement.animations : [this.activeElement.animations[index]]
-				Bus.$emit('RUN_ANIMATIONS', this.activeElement.uuid, animationData)
-			}
-		}
-	}
+    runAnimate(index) {
+      let animationData = index === undefined ? this.activeElement.animations : [this.activeElement.animations[index]]
+      Bus.$emit('RUN_ANIMATIONS', this.activeElement.uuid, animationData)
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

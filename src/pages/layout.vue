@@ -3,17 +3,17 @@
     <div class="page-header-wrapper">
       <PageHeader></PageHeader>
     </div>
-    <router-view class="sub-page"/>
+    <router-view class="sub-page" />
   </div>
 </template>
 
 <script>
-	import PageHeader from '@/components/page-header'
-	export default {
-		components: {
-			PageHeader
-		},
-	}
+import PageHeader from '@/components/page-header'
+export default {
+  components: {
+    PageHeader
+  }
+}
 </script>
 
 <style scoped>

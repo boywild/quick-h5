@@ -16,25 +16,25 @@
 </template>
 
 <script>
-	export default {
-		name: "preview-page",
-		props: {
-			pageId: String
-		},
-		data() {
-			return {
+export default {
+  name: 'PreviewPage',
+  props: {
+    pageId: String
+  },
+  data() {
+    return {
 
-			}
-		},
-		created() {
+    }
+  },
+  created() {
 
-		},
-		methods: {
-			closePreview() {
-				this.$emit('closePreview', false);
-			}
-		}
-	}
+  },
+  methods: {
+    closePreview() {
+      this.$emit('closePreview', false)
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

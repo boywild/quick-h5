@@ -1,6 +1,6 @@
 <template>
   <el-scrollbar class="components-attr-edit">
-    <div class="attr-edit-inner" v-if="activeElementUUID">
+    <div v-if="activeElementUUID" class="attr-edit-inner">
       <div class="props-attr-style">
         <propsAttr></propsAttr>
       </div>
@@ -15,28 +15,28 @@
 </template>
 
 <script>
-	import baseAttr from './attr-props-components/base-attr'
-	import propsAttr from './attr-props-components/props-attr/index.vue'
-	import {mapState, mapGetters} from 'vuex'
+import baseAttr from './attr-props-components/base-attr'
+import propsAttr from './attr-props-components/props-attr/index.vue'
+import { mapState, mapGetters } from 'vuex'
 
-	export default {
-		props: {},
-		components: {
-			baseAttr,
-			propsAttr
-		},
-		computed: {
-			...mapState({
-				projectData: state => state.editor.projectData,
-				activePageUUID: state => state.editor.activePageUUID,
-				activeElementUUID: state => state.editor.activeElementUUID
-			}),
-			...mapGetters([
-				'currentPageIndex',
-				'activeElementIndex'
-			])
-		}
-	}
+export default {
+  components: {
+    baseAttr,
+    propsAttr
+  },
+  props: {},
+  computed: {
+    ...mapState({
+      projectData: state => state.editor.projectData,
+      activePageUUID: state => state.editor.activePageUUID,
+      activeElementUUID: state => state.editor.activeElementUUID
+    }),
+    ...mapGetters([
+      'currentPageIndex',
+      'activeElementIndex'
+    ])
+  }
+}
 </script>
 
 <style scoped>

@@ -6,12 +6,12 @@
 </template>
 
 <script>
-	import notFundData from '@/components/notFundData'
-	export default {
-		components: {
-			notFundData
-		}
-	}
+import notFundData from '@/components/notFundData'
+export default {
+  components: {
+    notFundData
+  }
+}
 </script>
 
 <style scoped>

@@ -1,4 +1,4 @@
-import Vue from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -10,59 +10,55 @@ import filters from './filters/index'
 import AES from '@/common/js/secret'
 import * as API from '@/api/index'
 
-import Element from 'element-ui'
+import ElementPlus from 'element-plus'
+// import "element-plus/dist/index.css";
 import '@/common/styles/element-variables.scss'
 import '@/common/styles/index.scss' // 自定义 css
 import 'animate.css'
-import VueClipboard from 'vue-clipboard2'
 
-Vue.use(Element);
-Vue.use(VueClipboard)
+const app = createApp(App)
+app.use(router)
+
+app.use(ElementPlus)
 
 /**
  * 引入公共方法mUtils
  */
-Vue.prototype.$mUtils = mUtils;
-Vue.prototype.AES = AES
-Vue.prototype.$axios = httpServer;
-Vue.prototype.$api = API;
-Vue.prototype.$API = API;
+app.config.globalProperties.$mUtils = mUtils
+app.config.globalProperties.AES = AES
+app.config.globalProperties.$axios = httpServer
+app.config.globalProperties.$api = API
+app.config.globalProperties.$API = API
 
 /**
  * 公共配置信息
  */
-Vue.prototype.$config = config
-
-// 注册全局过滤器
-Object.keys(filters).forEach(key => {
-	Vue.filter(key, filters[key])
-})
-
-
+app.config.globalProperties.$config = config
+app.config.globalProperties.$filters = filters
 
 // 登录后跳转方法
-Vue.prototype.goBeforeLoginUrl = () => {
-	let url = mUtils.Cookie.get('beforeLoginUrl')
-	url = decodeURIComponent(url)
-	if (!url || url.indexOf('/author') != -1) {
-		router.push('/')
-	} else {
-		router.push(url)
-		mUtils.Cookie.set('beforeLoginUrl', '', 1 / 24 / 60, window.location.host, window.location.pathname.substring(0, window.location.pathname.length - 1))
-	}
-};
-
-
-String.prototype.replaceAll = function(s1, s2) {
-	return this.replace(new RegExp(s1, "gm"), s2);
+app.config.globalProperties.goBeforeLoginUrl = () => {
+  let url = mUtils.Cookie.get('beforeLoginUrl')
+  url = decodeURIComponent(url)
+  if (!url || url.indexOf('/author') !== -1) {
+    router.push('/')
+  } else {
+    router.push(url)
+    mUtils.Cookie.set(
+      'beforeLoginUrl',
+      '',
+      1 / 24 / 60,
+      window.location.host,
+      window.location.pathname.substring(0, window.location.pathname.length - 1)
+    )
+  }
 }
 
-Vue.config.productionTip = false
+// eslint-disable-next-line
+String.prototype.replaceAll = function (s1, s2) {
+  return this.replace(new RegExp(s1, 'gm'), s2)
+}
 
 store.commit('UPDATE_USER_FROM_LOCAL')
 
-new Vue({
-  router,
-  store,
-  render: h => h(App)
-}).$mount('#app')
+app.mount('#app')

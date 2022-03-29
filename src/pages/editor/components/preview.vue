@@ -1,22 +1,23 @@
+<!-- eslint-disable -->
 <template>
-  <previewWrapper :pageId="pageId" @closePreview="closePreview">
+  <previewWrapper :page-id="pageId" @closePreview="closePreview">
     <p class="page-title paddingL30">页面基础设置</p>
     <div class="preview-info-wrapper">
       <div class="page-info">
         <div class="page-cover">
-          <imageCropper :url.sync="pageData.coverImage"/>
+          <imageCropper v-model:url="pageData.coverImage" />
         </div>
         <div class="page-title-des">
           <div class="info-form-wrapper">
             <div class="info-form-l">标题：</div>
             <div class="info-form-r">
-              <el-input v-model="pageData.title"/>
+              <el-input v-model="pageData.title" />
             </div>
           </div>
           <div class="info-form-wrapper">
             <div class="info-form-l">描述：</div>
             <div class="info-form-r">
-              <el-input type="textarea" :rows="2" v-model="pageData.description"/>
+              <el-input v-model="pageData.description" type="textarea" :rows="2" />
             </div>
           </div>
         </div>
@@ -30,19 +31,19 @@
       <div v-show="pageData.shareConfig.shareWx" class="share-wx-config-wrapper marginB30">
         <div class="info-form-r page-info">
           <div class="page-cover">
-            <imageCropper :url.sync="pageData.shareConfig.coverImage"/>
+            <imageCropper v-model:url="pageData.shareConfig.coverImage" />
           </div>
           <div class="page-title-des">
             <div class="info-form-wrapper">
               <div class="info-form-l">分享标题：</div>
               <div class="info-form-r">
-                <el-input v-model="pageData.shareConfig.title"/>
+                <el-input v-model="pageData.shareConfig.title" />
               </div>
             </div>
             <div class="info-form-wrapper">
               <div class="info-form-l">分享描述：</div>
               <div class="info-form-r">
-                <el-input type="textarea" :rows="2" v-model="pageData.shareConfig.description"/>
+                <el-input v-model="pageData.shareConfig.description" type="textarea" :rows="2" />
               </div>
             </div>
           </div>
@@ -53,9 +54,9 @@
         <div class="info-form-l com-width">翻页方式：</div>
         <div class="info-form-r">
           <el-select v-model="pageData.flipType">
-            <el-option label="上下翻页" :value="0"/>
-            <el-option label="左右翻页" :value="1"/>
-            <el-option label="翻书效果" :value="2"/>
+            <el-option label="上下翻页" :value="0" />
+            <el-option label="左右翻页" :value="1" />
+            <el-option label="翻书效果" :value="2" />
           </el-select>
         </div>
       </div>
@@ -71,8 +72,8 @@
         <div class="info-form-l com-width">作品访问状态：</div>
         <div class="info-form-r">
           <el-select v-model="pageData.status">
-            <el-option label="允许访问" :value="1"/>
-            <el-option label="不允许访问" :value="0"/>
+            <el-option label="允许访问" :value="1" />
+            <el-option label="不允许访问" :value="0" />
           </el-select>
         </div>
       </div>
@@ -86,85 +87,87 @@
 </template>
 
 <script>
-	import previewWrapper from '@/components/preview-wrapper'
-	import imageCropper from '@/components/image-cropper'
+import previewWrapper from '@/components/preview-wrapper'
+import imageCropper from '@/components/image-cropper'
 
-	export default {
-		components: {
-			previewWrapper,
-			imageCropper
-		},
-		props: {
-			pageId: String,
-			pageData: {
-				type: Object,
-				require: true
-			}
-		},
-		data() {
-			return {}
-		},
-		methods: {
-			/**
-			 * 关闭弹窗事件
-			 */
-			closePreview() {
-				this.$emit('closePreview', false);
-			},
-			publishFn() {
-				this.$emit('publishFn')
-			},
-			saveFn() {
-				this.$emit('saveFn')
-			}
-		}
-	}
+export default {
+  components: {
+    previewWrapper,
+    imageCropper
+  },
+
+  props: {
+    pageId: String,
+    pageData: {
+      type: Object,
+      require: true
+    }
+  },
+  emits: ['closePreview', 'publishFn', 'saveFn'],
+  data() {
+    return {}
+  },
+  methods: {
+    /**
+     * 关闭弹窗事件
+     */
+    closePreview() {
+      this.$emit('closePreview', false)
+    },
+    publishFn() {
+      this.$emit('publishFn')
+    },
+    saveFn() {
+      this.$emit('saveFn')
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
-  .preview-info-wrapper {
-    padding: 30px 30px 60px;
-  }
+.preview-info-wrapper {
+  padding: 30px 30px 60px;
+}
 
-  .page-info {
-    display: flex;
-    .page-cover {
+.page-info {
+  display: flex;
+  .page-cover {
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+  }
+  .page-title-des {
+    padding-left: 20px;
+    flex: 1;
+  }
+}
+
+.info-form-wrapper {
+  display: flex;
+  padding-bottom: 16px;
+  .info-form-l {
+    line-height: 42px;
+    &.com-width {
       width: 120px;
-      height: 120px;
-      overflow: hidden;
-    }
-    .page-title-des {
-      padding-left: 20px;
-      flex: 1;
     }
   }
+  .info-form-r {
+    flex: 1;
+    padding-left: 10px;
+  }
+}
 
-  .info-form-wrapper {
-    display: flex;
-    padding-bottom: 16px;
-    .info-form-l {
-      line-height: 42px;
-      &.com-width {
-        width: 120px;
-      }
-    }
-    .info-form-r {
-      flex: 1;
-      padding-left: 10px;
-    }
-  }
+.foot-btn-wrapper {
+  position: absolute;
+  left: 0;
+  bottom: 8px;
+  height: 60px;
+  padding: 8px 30px;
+}
 
-  .foot-btn-wrapper {
-    position: absolute;
-    left: 0;
-    bottom: 8px;
-    height: 60px;
-    padding: 8px 30px;
-  }
-
-  .share-wx-config-wrapper {
-    margin-top: 14px;
-    padding: 12px;
-    background-color: #f0f3f4;
-  }
+.share-wx-config-wrapper {
+  margin-top: 14px;
+  padding: 12px;
+  background-color: #f0f3f4;
+}
 </style>

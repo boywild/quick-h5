@@ -1,17 +1,17 @@
 <template>
-<div class="page-data-list">
-  <div></div>
-  <notFundData />
-</div>
+  <div class="page-data-list">
+    <div></div>
+    <notFundData />
+  </div>
 </template>
 
 <script>
-  import notFundData from '@/components/notFundData'
-	export default {
-		components: {
-			notFundData
-    }
-	}
+import notFundData from '@/components/notFundData'
+export default {
+  components: {
+    notFundData
+  }
+}
 </script>
 
 <style scoped>

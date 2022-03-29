@@ -5,8 +5,8 @@
   <div class="image-select-wrapper">
     <div class="image-select-l">
       <div class="component-image-select" @click="handleClick">
-        <img :src="url" alt="" v-if="url">
-        <div class="image-preview-null" v-else>
+        <img v-if="url" :src="url" alt="">
+        <div v-else class="image-preview-null">
           <p><i class="el-icon-plus"></i></p>
           <p>选择图片</p>
         </div>
@@ -14,56 +14,57 @@
     </div>
     <div class="image-select-r">
       <el-input
-              type="textarea"
-              :rows="4"
-              placeholder="请输入图片地址"
-              v-model="tempValue">
+        v-model="tempValue"
+        type="textarea"
+        :rows="4"
+        placeholder="请输入图片地址"
+      >
       </el-input>
     </div>
   </div>
 </template>
 
 <script>
-	import $bus from '@/eventBus'
-	export default {
-		props: {
-			url: String
-		},
-		data() {
-			return {
-				// 唯一得id用于选择图片后事件通知
-				selectId: +new Date(),
-				tempValue: ''
-			}
-		},
-		created() {
-			$bus.$on('select-image', this.changeIamge)
-			this.tempValue = this.url;
-		},
-		watch: {
-			url(val) {
-				this.tempValue = val;
-			},
-			tempValue(val) {
-				this.changeIamge(this.selectId, val);
-			}
-		},
-		methods: {
-			changeIamge(id, url) {
-				if (id !== this.selectId) {
-					return;
-				}
-				this.$emit('update:url', url)
-				this.$emit('change', url)
-			},
-			/**
+import $bus from '@/eventBus'
+export default {
+  props: {
+    url: String
+  },
+  data() {
+    return {
+      // 唯一得id用于选择图片后事件通知
+      selectId: +new Date(),
+      tempValue: ''
+    }
+  },
+  watch: {
+    url(val) {
+      this.tempValue = val
+    },
+    tempValue(val) {
+      this.changeIamge(this.selectId, val)
+    }
+  },
+  created() {
+    $bus.$on('select-image', this.changeIamge)
+    this.tempValue = this.url
+  },
+  methods: {
+    changeIamge(id, url) {
+      if (id !== this.selectId) {
+        return
+      }
+      this.$emit('update:url', url)
+      this.$emit('change', url)
+    },
+    /**
 			 * 点击弹出选择图片弹窗
 			 */
-			handleClick(){
-				$bus.$emit('show-select-image', this.selectId)
-			}
-		}
-	}
+    handleClick() {
+      $bus.$emit('show-select-image', this.selectId)
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

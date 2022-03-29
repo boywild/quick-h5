@@ -17,22 +17,12 @@ module.exports = {
   devServer: devServer,
   // 输出文件目录
   assetsDir: "static",
-  // 修改 pages 入口
-  pages: {
-    index: {
-      entry: "src/main.js", // 入口
-      template: "public/index.html", // 模板
-      filename: "index.html", // 输出文件
-    },
-  },
   css: {
     loaderOptions: {
-      sass: {
-        // @/ 是 src/ 的别名
-        data: fs.readFileSync(
-          path.resolve(__dirname, `./src/common/styles/variables.scss`),
-          "utf-8"
-        ), // 公共变量文件注入
+      scss: {
+        prependData: `
+			@import "@/common/styles/variables.scss";
+		  `,
       },
     },
   },
@@ -44,15 +34,5 @@ module.exports = {
       .set("@", path.resolve("src"))
       .set("@src", path.resolve("src"))
       .set("@plugins", path.resolve("plugins"));
-    config.module
-      .rule("js")
-      .include.add(/engine-template/)
-      .end()
-      .use("babel")
-      .loader("babel-loader")
-      .tap((options) => {
-        // 修改它的选项...
-        return options;
-      });
   },
 };

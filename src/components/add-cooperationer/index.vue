@@ -1,28 +1,31 @@
 <template>
   <el-dialog
-          title="协作人管理"
-          :visible.sync="visible"
-          width="650px">
+    v-model:visible="visible"
+    title="协作人管理"
+    width="650px"
+  >
     <div>
       <div class="new-folder-wrapper paddingL30 padingR30">
         <div class="title">按人员搜索添加(多选):</div>
         <div class="search-wrapper">
           <div class="input-wrapper">
             <el-select
-                    class="input-i"
-                    v-model="userInput"
-                    multiple
-                    filterable
-                    remote
-                    reserve-keyword
-                    placeholder="请输入用户名|邮箱|昵称搜索"
-                    :remote-method="remoteMethod_user"
-                    :loading="loading_user">
+              v-model="userInput"
+              class="input-i"
+              multiple
+              filterable
+              remote
+              reserve-keyword
+              placeholder="请输入用户名|邮箱|昵称搜索"
+              :remote-method="remoteMethod_user"
+              :loading="loading_user"
+            >
               <el-option
-                      v-for="item in userOptions"
-                      :key="item._id"
-                      :label="item.name"
-                      :value="item._id">
+                v-for="item in userOptions"
+                :key="item._id"
+                :label="item.name"
+                :value="item._id"
+              >
               </el-option>
             </el-select>
           </div>
@@ -35,14 +38,15 @@
         <div class="title">已加入成员:</div>
         <div class="user-list">
           <el-tag
-                  class="user-item"
-                  v-for="(tag, index) in cooperationUserList"
-                  :key="index"
-                  size="mini"
-                  @close="delUser(tag._id, index)"
-                  closable>
+            v-for="(tag, index) in cooperationUserList"
+            :key="index"
+            class="user-item"
+            size="mini"
+            closable
+            @close="delUser(tag._id, index)"
+          >
             <img class="userHeadImage" :src="tag.avatar || userHeadImage" alt="">
-            {{tag.name}}
+            {{ tag.name }}
           </el-tag>
         </div>
       </div>
@@ -51,73 +55,73 @@
 </template>
 
 <script>
-	import {
-		Form,
-		FormItem,
-		Dialog,
-		Button,
-		Select,
-		Option,
-		Tag
-	} from 'element-ui'
+import {
+  ElForm,
+  ElFormItem,
+  ElDialog,
+  ElButton,
+  ElSelect,
+  ElOption,
+  ElTag
+} from 'element-plus'
 
-	export default {
-		components: {
-			[Tag.name]: Tag,
-			[Select.name]: Select,
-			[Option.name]: Option,
-			[Form.name]: Form,
-			[FormItem.name]: FormItem,
-			[Dialog.name]: Dialog,
-			[Button.name]: Button,
-		},
-		data() {
-			return {
-				userHeadImage: require('@/common/images/headerImage.png'),
-				pageId: '',
-				visible: false,
-				callback: null,
-				loading_user: false,
-				groupInput: '',
-				groupOptions: [],
-				userInput: [],
-				userOptions: [],
-				cooperationUserList: []
-			}
-		},
-		created() {
-			this.getCooperationList();
-		},
-		methods: {
-			getCooperationList() {
-				this.$API.getCooperationUserListByPageId({pageId: this.pageId}).then(res => {
-					this.cooperationUserList = res.body || [];
-				})
-			},
-			remoteMethod_user(str) {
-				this.loading_user = true;
-				this.$API.getUserListByKeywords({keywords: str}).then(res => {
-					this.userOptions = res.body || [];
-					this.loading_user = false;
-				}).catch(() => {
-					this.loading_user = true;
-				})
-			},
-			addUser() {
-				if (!this.userInput.length) return;
-				this.$API.addCooperation({pageId: this.pageId, userIds: this.userInput}).then(res => {
-					this.cooperationUserList = res.body || [];
-					this.userInput = [];
-				})
-			},
-			// 删除
-			delUser(userId, index) {
-				this.$API.delCooperation({pageId: this.pageId, userId: userId}).then(() => {
-					this.cooperationUserList.splice(index, 1);
-				})
-			}
-		}
-	}
+export default {
+  components: {
+    [ElTag.name]: ElTag,
+    [ElSelect.name]: ElSelect,
+    [ElOption.name]: ElOption,
+    [ElForm.name]: ElForm,
+    [ElFormItem.name]: ElFormItem,
+    [ElDialog.name]: ElDialog,
+    [ElButton.name]: ElButton
+  },
+  data() {
+    return {
+      userHeadImage: require('@/common/images/headerImage.png'),
+      pageId: '',
+      visible: false,
+      callback: null,
+      loading_user: false,
+      groupInput: '',
+      groupOptions: [],
+      userInput: [],
+      userOptions: [],
+      cooperationUserList: []
+    }
+  },
+  created() {
+    this.getCooperationList()
+  },
+  methods: {
+    getCooperationList() {
+      this.$API.getCooperationUserListByPageId({ pageId: this.pageId }).then(res => {
+        this.cooperationUserList = res.body || []
+      })
+    },
+    remoteMethod_user(str) {
+      this.loading_user = true
+      this.$API.getUserListByKeywords({ keywords: str }).then(res => {
+        this.userOptions = res.body || []
+        this.loading_user = false
+      }).catch(() => {
+        this.loading_user = true
+      })
+    },
+    addUser() {
+      if (!this.userInput.length) return
+      this.$API.addCooperation({ pageId: this.pageId, userIds: this.userInput }).then(res => {
+        this.cooperationUserList = res.body || []
+        this.userInput = []
+      })
+    },
+    // 删除
+    delUser(userId, index) {
+      this.$API.delCooperation({ pageId: this.pageId, userId: userId }).then(() => {
+        this.cooperationUserList.splice(index, 1)
+      })
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

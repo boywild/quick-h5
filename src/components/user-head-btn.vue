@@ -5,11 +5,11 @@
         <div class="user-head-btn-img">
           <img :src="userData.avatar || userHeadImage" alt="">
         </div>
-        <span class="user-head-btn-name">{{userData.name}}</span>
+        <span class="user-head-btn-name">{{ userData.name }}</span>
       </div>
       <el-dropdown-menu v-if="isLogined">
         <el-dropdown-item>
-          <userInfo :userData="userData" :showEdit="true">
+          <userInfo :user-data="userData" :show-edit="true">
             <i class="el-icon-user"></i> 个人资料
           </userInfo>
         </el-dropdown-item>
@@ -25,55 +25,55 @@
         </el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
-    <div class="inline-block" v-else>
+    <div v-else class="inline-block">
       <span class="login-btn" @click="goLogin">登录/注册</span>
     </div>
   </div>
 </template>
 
 <script>
-	import {
-		Button,
-		Dropdown,
-		DropdownMenu,
-		DropdownItem,
-	} from 'element-ui'
-  import resetPassword from '@/components/reset-password'
-  import userInfo from '@/components/user-info'
-  import userModel from '@/libs/userModel'
+import {
+  ElButton,
+  ElDropdown,
+  ElDropdownMenu,
+  ElDropdownItem
+} from 'element-plus'
+import resetPassword from '@/components/reset-password'
+import userInfo from '@/components/user-info'
+import userModel from '@/libs/userModel'
 
-	export default {
-		name: "user-head-btn",
-		components: {
-			[Button.name]: Button,
-			[Dropdown.name]: Dropdown,
-			[DropdownMenu.name]: DropdownMenu,
-			[DropdownItem.name]: DropdownItem,
-      resetPassword,
-      userInfo
-		},
-		data() {
-			return {
-				userHeadImage: require('@/common/images/headerImage.png')
-			}
-		},
-		computed: {
-			isLogined(){
-				return this.$store.state.user.access_token
-      },
-			userData() {
-				return this.$store.state.user.userInfo || {}
-			}
-		},
-		methods: {
-			doLogout() {
-				userModel.doLogout()
-			},
-			goLogin(){
-				userModel.goLogin()
-      }
-		}
-	}
+export default {
+  name: 'UserHeadBtn',
+  components: {
+    [ElButton.name]: ElButton,
+    [ElDropdown.name]: ElDropdown,
+    [ElDropdownMenu.name]: ElDropdownMenu,
+    [ElDropdownItem.name]: ElDropdownItem,
+    resetPassword,
+    userInfo
+  },
+  data() {
+    return {
+      userHeadImage: require('@/common/images/headerImage.png')
+    }
+  },
+  computed: {
+    isLogined() {
+      return this.$store.state.user.access_token
+    },
+    userData() {
+      return this.$store.state.user.userInfo || {}
+    }
+  },
+  methods: {
+    doLogout() {
+      userModel.doLogout()
+    },
+    goLogin() {
+      userModel.goLogin()
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

@@ -5,16 +5,16 @@
 </template>
 
 <script>
-import engineTemplate from "../../../engine-template/engine-h5-swiper/index";
+import engineTemplate from '../../../engine-template/engine-h5-swiper/index'
 export default {
-  name: "swiper-h5",
+  name: 'SwiperH5',
   components: {
-    engineTemplate,
+    engineTemplate
   },
   data() {
-    return {};
-  },
-};
+    return {}
+  }
+}
 </script>
 
 <style lang="scss" scoped>
