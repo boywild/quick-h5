@@ -47,7 +47,7 @@ export default {
   },
   mounted() {
     this.animatePlaying = false
-    Bus.$on('RUN_ANIMATIONS', (uuid, animations) => {
+    Bus.on('RUN_ANIMATIONS', (uuid, animations) => {
       if (uuid !== this.uuid) {
         return
       }

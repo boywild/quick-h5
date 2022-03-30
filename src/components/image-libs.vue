@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import $bus from '@/eventBus'
+import Bus from '@/eventBus'
 
 export default {
   name: 'ImageLibs',
@@ -49,7 +49,7 @@ export default {
     }
   },
   created() {
-    $bus.$on('show-select-image', (selectId) => {
+    Bus.on('show-select-image', (selectId) => {
       this.dialogVisible = true
       this.selectId = selectId
     })
@@ -94,7 +94,7 @@ export default {
      * @param url
      */
     handleImageClick(url) {
-      $bus.$emit('select-image', this.selectId, url)
+      Bus.emit('select-image', this.selectId, url)
       this.dialogVisible = false
     }
   }

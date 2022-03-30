@@ -162,7 +162,7 @@ export default {
 			 */
     runAnimate(index) {
       let animationData = index === undefined ? this.activeElement.animations : [this.activeElement.animations[index]]
-      Bus.$emit('RUN_ANIMATIONS', this.activeElement.uuid, animationData)
+      Bus.emit('RUN_ANIMATIONS', this.activeElement.uuid, animationData)
     }
   }
 }

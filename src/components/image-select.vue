@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import $bus from '@/eventBus'
+import Bus from '@/eventBus'
 export default {
   props: {
     url: String
@@ -46,7 +46,7 @@ export default {
     }
   },
   created() {
-    $bus.$on('select-image', this.changeIamge)
+    Bus.on('select-image', this.changeIamge)
     this.tempValue = this.url
   },
   methods: {
@@ -61,7 +61,7 @@ export default {
 			 * 点击弹出选择图片弹窗
 			 */
     handleClick() {
-      $bus.$emit('show-select-image', this.selectId)
+      Bus.emit('show-select-image', this.selectId)
     }
   }
 }
