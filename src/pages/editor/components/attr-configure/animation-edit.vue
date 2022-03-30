@@ -29,7 +29,7 @@
                   <div class="col-2 attr-item-edit-input">
                     <el-input-number
                       v-model="item.duration"
-                      size="mini"
+                      size="small"
                       controls-position="right"
                       :min="0"
                       :step="0.1"
@@ -39,13 +39,13 @@
                 <div class="attr-item-edit-wrapper">
                   <p class="attr-item-title">动画延迟：</p>
                   <div class="col-2  attr-item-edit-input">
-                    <el-input-number v-model="item.delay" size="mini" controls-position="right" :min="0" :step="0.1" />
+                    <el-input-number v-model="item.delay" size="small" controls-position="right" :min="0" :step="0.1" />
                   </div>
                 </div>
                 <div class="attr-item-edit-wrapper">
                   <p class="attr-item-title">循环次数：</p>
                   <div class="col-2 attr-item-edit-input">
-                    <el-input-number v-model="item.interationCount" size="mini" controls-position="right" />
+                    <el-input-number v-model="item.interationCount" size="small" controls-position="right" />
                     <div class="attr-item-edit-input-des">次数</div>
                   </div>
                   <div class="col-2 attr-item-edit-input">

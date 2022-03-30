@@ -222,6 +222,7 @@ export default {
     transition: all 3s;
     border-radius: 4px;
     cursor: pointer;
+    flex: 1;
   }
   .login-page-bottom {
     font-size: 12px;

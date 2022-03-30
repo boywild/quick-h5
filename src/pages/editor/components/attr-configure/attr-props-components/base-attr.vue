@@ -23,7 +23,7 @@
           <div class="col-2 attr-item-edit-input">
             <el-input-number
               v-model="activeElement.commonStyle.width"
-              size="mini"
+              size="small"
               controls-position="right"
               :min="0"
             />
@@ -32,7 +32,7 @@
           <div class="col-2 attr-item-edit-input">
             <el-input-number
               v-model="activeElement.commonStyle.height"
-              size="mini"
+              size="small"
               controls-position="right"
               :min="0"
             />
@@ -64,7 +64,7 @@
           <div class="col-2 attr-item-edit-input">
             <el-input-number
               v-model="activeElement.commonStyle.top"
-              size="mini"
+              size="small"
               controls-position="right"
             />
             <div class="attr-item-edit-input-des">X</div>
@@ -72,7 +72,7 @@
           <div class="col-2 attr-item-edit-input">
             <el-input-number
               v-model="activeElement.commonStyle.left"
-              size="mini"
+              size="small"
               controls-position="right"
             />
             <div class="attr-item-edit-input-des">Y</div>
@@ -87,7 +87,7 @@
               :min="-180"
               :max="180"
               :marks="{0:'',90:'', '-90':''}"
-              input-size="mini"
+              input-size="small"
               @change="throttleAddHistory"
             ></el-slider>
           </div>
@@ -101,7 +101,7 @@
           <div class="col-2 attr-item-edit-input">
             <el-input-number
               v-model="activeElement.commonStyle.borderWidth"
-              size="mini"
+              size="small"
               controls-position="right"
               :min="0"
               @change="throttleAddHistory"
@@ -111,7 +111,7 @@
           <div class="col-3 attr-item-edit-input">
             <el-color-picker
               v-model="activeElement.commonStyle.borderColor"
-              size="mini"
+              size="small"
               @change="throttleAddHistory"
             ></el-color-picker>
             <div class="attr-item-edit-input-des">颜色</div>
@@ -119,7 +119,7 @@
           <div class="col-2 attr-item-edit-input">
             <el-select
               v-model="activeElement.commonStyle.borderStyle"
-              size="mini"
+              size="small"
               @change="throttleAddHistory"
             >
               <el-option v-for="item in borderStyleList" :key="item.value" :label="item.label" :value="item.value" />
@@ -132,7 +132,7 @@
           <div class="col-2 attr-item-edit-input">
             <el-input-number
               v-model="activeElement.commonStyle.borderRadius"
-              size="mini"
+              size="small"
               controls-position="right"
               :min="0"
               @change="throttleAddHistory"
@@ -146,7 +146,7 @@
           <div class="col-2 attr-item-edit-input">
             <el-input-number
               v-model="activeElement.commonStyle.paddingTop"
-              size="mini"
+              size="small"
               controls-position="right"
               :min="0"
               @change="throttleAddHistory"
@@ -155,7 +155,7 @@
           <div class="col-2 attr-item-edit-input">
             <el-input-number
               v-model="activeElement.commonStyle.paddingBottom"
-              size="mini"
+              size="small"
               controls-position="right"
               :min="0"
               @change="throttleAddHistory"
@@ -167,7 +167,7 @@
           <div class="col-2 attr-item-edit-input">
             <el-input-number
               v-model="activeElement.commonStyle.paddingLeft"
-              size="mini"
+              size="small"
               controls-position="right"
               :min="0"
               @change="throttleAddHistory"
@@ -176,7 +176,7 @@
           <div class="col-2 attr-item-edit-input">
             <el-input-number
               v-model="activeElement.commonStyle.paddingRight"
-              size="mini"
+              size="small"
               controls-position="right"
               :min="0"
               @change="throttleAddHistory"
@@ -189,24 +189,24 @@
         <div class="attr-item-edit-wrapper">
           <p class="attr-item-title">阴影位置：</p>
           <div class="col-2 attr-item-edit-input">
-            <el-input-number v-model="boxShadow.h" size="mini" controls-position="right" @change="boxShadowChange" />
+            <el-input-number v-model="boxShadow.h" size="small" controls-position="right" @change="boxShadowChange" />
             <div class="attr-item-edit-input-des">水平阴影位置</div>
           </div>
           <div class="col-2 attr-item-edit-input">
-            <el-input-number v-model="boxShadow.v" size="mini" controls-position="right" @change="boxShadowChange" />
+            <el-input-number v-model="boxShadow.v" size="small" controls-position="right" @change="boxShadowChange" />
             <div class="attr-item-edit-input-des">垂直阴影位置</div>
           </div>
         </div>
         <div class="attr-item-edit-wrapper">
           <p class="attr-item-title">阴影位置：</p>
           <div class="col-2 attr-item-edit-input">
-            <el-input-number v-model="boxShadow.blur" size="mini" controls-position="right" @change="boxShadowChange" />
+            <el-input-number v-model="boxShadow.blur" size="small" controls-position="right" @change="boxShadowChange" />
             <div class="attr-item-edit-input-des">水平阴影位置</div>
           </div>
           <div class="col-2 attr-item-edit-input">
             <el-input-number
               v-model="boxShadow.spread"
-              size="mini"
+              size="small"
               controls-position="right"
               @change="boxShadowChange"
             />
@@ -216,7 +216,7 @@
         <div class="attr-item-edit-wrapper">
           <p class="attr-item-title">阴影颜色：</p>
           <div class="attr-item-edit-input">
-            <el-color-picker v-model="boxShadow.color" size="mini" @change="boxShadowChange"></el-color-picker>
+            <el-color-picker v-model="boxShadow.color" size="small" @change="boxShadowChange"></el-color-picker>
           </div>
         </div>
       </el-collapse-item>
@@ -226,7 +226,7 @@
           <div class="col-2 attr-item-edit-input">
             <el-input-number
               v-model="activeElement.commonStyle.fontSize"
-              size="mini"
+              size="small"
               controls-position="right"
               :min="0"
               @change="throttleAddHistory"
@@ -238,7 +238,7 @@
           <div class="col-2 attr-item-edit-input">
             <el-input-number
               v-model="activeElement.commonStyle.fontWeight"
-              size="mini"
+              size="small"
               controls-position="right"
               :min="300"
               :step="100"
@@ -252,7 +252,7 @@
           <div class="col-2 attr-item-edit-input">
             <el-input-number
               v-model="activeElement.commonStyle.lineHeight"
-              size="mini"
+              size="small"
               controls-position="right"
               :min="0"
               :step="0.1"
@@ -265,7 +265,7 @@
           <div class="col-2 attr-item-edit-input">
             <el-input-number
               v-model="activeElement.commonStyle.letterSpacing"
-              size="mini"
+              size="small"
               controls-position="right"
               :min="0"
               @change="throttleAddHistory"
@@ -298,7 +298,7 @@
           <div class="attr-item-edit-input">
             <el-color-picker
               v-model="activeElement.commonStyle.color"
-              size="mini"
+              size="small"
               @change="throttleAddHistory"
             ></el-color-picker>
           </div>
@@ -310,7 +310,7 @@
           <div class="attr-item-edit-input no-top">
             <el-color-picker
               v-model="activeElement.commonStyle.backgroundColor"
-              size="mini"
+              size="small"
               :show-alpha="true"
               @change="throttleAddHistory"
             ></el-color-picker>
@@ -328,7 +328,7 @@
           <div class="col-2 attr-item-edit-input">
             <el-input-number
               v-model="activeElement.commonStyle.opacity"
-              size="mini"
+              size="small"
               controls-position="right"
               :min="0"
               :max="1"

@@ -41,7 +41,7 @@
             v-for="(tag, index) in cooperationUserList"
             :key="index"
             class="user-item"
-            size="mini"
+            size="small"
             closable
             @close="delUser(tag._id, index)"
           >

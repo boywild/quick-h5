@@ -6,7 +6,7 @@
       <div class="attr-item-edit-input no-top">
         <el-color-picker
           v-model="activePage.commonStyle.backgroundColor"
-          size="mini"
+          size="small"
           :show-alpha="true"
         ></el-color-picker>
       </div>
