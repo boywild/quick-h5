@@ -98,8 +98,7 @@ export default {
     /**
      * 切换页面类型
      * */
-    handlePageModeClick(val) {
-      this.searchParams.pageMode = val.name
+    handlePageModeClick() {
       this.getPageList()
     },
     /**
