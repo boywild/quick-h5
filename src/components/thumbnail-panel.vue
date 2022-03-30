@@ -25,19 +25,17 @@
       <div v-if="showMoreBtn" class="btn-wrapper">
         <el-dropdown placement="top-start" @command="command">
           <el-button type="text" size="mini">更多 <i class="el-icon-more-outline"></i></el-button>
-          <el-dropdown-menu>
-            <template v-for="(item, index) in operationDataList">
-              <el-dropdown-item
-                v-if="btnList.includes(item.eventType)"
-                :key="index"
-                :command="item.eventType"
-              >
-                <div :class="item.extraClassName">
-                  {{ item.title }}
-                </div>
-              </el-dropdown-item>
-            </template>
-          </el-dropdown-menu>
+          <template #dropdown>
+            <el-dropdown-menu>
+              <template v-for="(item, index) in operationDataList">
+                <el-dropdown-item v-if="btnList.includes(item.eventType)" :key="index" :command="item.eventType">
+                  <div :class="item.extraClassName">
+                    {{ item.title }}
+                  </div>
+                </el-dropdown-item>
+              </template>
+            </el-dropdown-menu>
+          </template>
         </el-dropdown>
       </div>
     </div>
@@ -51,14 +49,12 @@
 </template>
 
 <script>
-import {
-  ElDropdown,
-  ElDropdownMenu,
-  ElDropdownItem
-} from 'element-plus'
+import { mapState } from 'vuex'
+import { ElDropdown, ElDropdownMenu, ElDropdownItem } from 'element-plus'
 import editorProjectConfig from '@/pages/editor/DataModel'
 
-import addCooperationer from '@/components/add-cooperationer/index.js'
+// TODO
+// import addCooperationer from '@/components/add-cooperationer/index.js'
 export default {
   components: {
     [ElDropdown.name]: ElDropdown,
@@ -91,50 +87,64 @@ export default {
     return {
       loading: false,
       defaultCoverImage: require('@/common/images/quark--pagecover-image.png'),
-      operationDataList: [{
-        title: '发布',
-        eventType: 'publish',
-        extraClassName: '',
-        iconClass: ''
-      }, {
-        title: '发布模板市场',
-        eventType: 'publishTemplate',
-        extraClassName: '',
-        iconClass: ''
-      }, {
-        title: '复制链接',
-        eventType: 'copyUrl',
-        iconClass: ''
-      }, {
-        title: '设为我的模板',
-        eventType: 'setTemplate',
-        iconClass: ''
-      }, {
-        title: '页面数据',
-        eventType: 'viewPageData',
-        iconClass: ''
-      }, {
-        title: '协作设置',
-        eventType: 'cooperation',
-        iconClass: ''
-      }, {
-        title: '删除',
-        eventType: 'delete',
-        extraClassName: 'error',
-        iconClass: ''
-      }, {
-        title: '退出协作',
-        eventType: 'unCooperation',
-        extraClassName: 'error',
-        iconClass: ''
-      }]
+      operationDataList: [
+        {
+          title: '发布',
+          eventType: 'publish',
+          extraClassName: '',
+          iconClass: ''
+        },
+        {
+          title: '发布模板市场',
+          eventType: 'publishTemplate',
+          extraClassName: '',
+          iconClass: ''
+        },
+        {
+          title: '复制链接',
+          eventType: 'copyUrl',
+          iconClass: ''
+        },
+        {
+          title: '设为我的模板',
+          eventType: 'setTemplate',
+          iconClass: ''
+        },
+        {
+          title: '页面数据',
+          eventType: 'viewPageData',
+          iconClass: ''
+        },
+        {
+          title: '协作设置',
+          eventType: 'cooperation',
+          iconClass: ''
+        },
+        {
+          title: '删除',
+          eventType: 'delete',
+          extraClassName: 'error',
+          iconClass: ''
+        },
+        {
+          title: '退出协作',
+          eventType: 'unCooperation',
+          extraClassName: 'error',
+          iconClass: ''
+        }
+      ]
     }
+  },
+  computed: {
+    ...mapState({
+      userInfo: (state) => state.editor.userInfo
+    })
   },
   methods: {
     /**
-			 * 操作命令
-			 * @param type
-			 */
+     * 操作命令
+     * @param type
+     */
     command(type) {
       switch (type) {
         case 'publish':
@@ -167,14 +177,17 @@ export default {
     newPage() {
       let newPageData = editorProjectConfig.getProjectConfig()
       this.loading = true
-      this.$API.createPage({ ...newPageData }).then(res => {
-        this.loading = false
-        if (res.body) {
-          this.$router.push({ name: 'Editor', query: { id: res.body._id } })
-        }
-      }).catch(() => {
-        this.loading = false
-      })
+      this.$API
+        .createPage({ ...newPageData })
+        .then((res) => {
+          this.loading = false
+          if (res.body) {
+            this.$router.push({ name: 'Editor', query: { id: res.body._id } })
+          }
+        })
+        .catch(() => {
+          this.loading = false
+        })
     },
     // 编辑
     edit() {
@@ -183,41 +196,49 @@ export default {
     // 复制页面
     copyPage() {
       this.loading = true
-      this.$API.copyPage({ id: this.pageData._id }).then(res => {
-        this.loading = false
-        this.$router.push({ name: 'Editor', query: { id: res.body._id } })
-      }).catch(() => {
-        this.loading = false
-      })
+      this.$API
+        .copyPage({ id: this.pageData._id })
+        .then((res) => {
+          this.loading = false
+          this.$router.push({ name: 'Editor', query: { id: res.body._id } })
+        })
+        .catch(() => {
+          this.loading = false
+        })
     },
     // 发布
     publish() {
       this.loading = true
-      this.$API.publishPage({ id: this.pageData._id }).then(() => {
-        this.loading = false
-        this.$message.success('发布成功')
-        this.preview(this.pageData._id)
-        this.$emit('refresh')
-      }).catch(() => {
-        this.loading = false
-      })
+      this.$API
+        .publishPage({ id: this.pageData._id })
+        .then(() => {
+          this.loading = false
+          this.$message.success('发布成功')
+          this.preview(this.pageData._id)
+          this.$emit('refresh')
+        })
+        .catch(() => {
+          this.loading = false
+        })
     },
     // 预览
     preview(id) {
       this.$emit('showPreview', id)
     },
     // 复制链接
-    copyUrl() {
-    },
+    copyUrl() {},
     // 设为我的模板
     setTemplate() {
       this.loading = true
-      this.$API.setTemplatePage({ id: this.pageData._id }).then(() => {
-        this.loading = false
-        this.$message.success('已添加到我的模板')
-      }).catch(() => {
-        this.loading = false
-      })
+      this.$API
+        .setTemplatePage({ id: this.pageData._id })
+        .then(() => {
+          this.loading = false
+          this.$message.success('已添加到我的模板')
+        })
+        .catch(() => {
+          this.loading = false
+        })
     },
     // 页面数据
     viewPageData() {
@@ -225,7 +246,8 @@ export default {
     },
     // 协作设置
     cooperation() {
-      addCooperationer(this.pageData._id)
+      // TODO
+      // addCooperationer(this.pageData._id)
     },
     // 删除
     delete() {
@@ -247,7 +269,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-        this.$API.delCooperation({ pageId: this.pageData._id, userId: this.$store.state.user.userInfo._id }).then(() => {
+        this.$API.delCooperation({ pageId: this.pageData._id, userId: this.userInfo._id }).then(() => {
           this.$message.success('已退出！')
           this.$emit('refresh')
         })
@@ -256,142 +278,145 @@ export default {
     // 发布模板到模板市场
     publishTemplate() {
       this.loading = true
-      this.$API.publishPage({ id: this.pageData._id }).then(() => {
-        this.loading = false
-        this.$message.success('发布成功')
-      }).catch(() => {
-        this.loading = false
-      })
+      this.$API
+        .publishPage({ id: this.pageData._id })
+        .then(() => {
+          this.loading = false
+          this.$message.success('发布成功')
+        })
+        .catch(() => {
+          this.loading = false
+        })
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-  .page-thumbnail-panel {
-    width: 224px;
-    height: 296px;
-    border-radius: 4px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    background: white;
-    position: relative;
-    transition: all 0.28s;
-    &:hover {
-      box-shadow: 0 0 16px 0 rgba(0, 0, 0, .16);
-      transform: translate3d(0, -2px, 0);
-      .header-mask {
-        opacity: 1;
-      }
-    }
-
+.page-thumbnail-panel {
+  width: 224px;
+  height: 296px;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  position: relative;
+  transition: all 0.28s;
+  &:hover {
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.16);
+    transform: translate3d(0, -2px, 0);
     .header-mask {
-      position: absolute;
-      top: 0;
-      left: 0;
-      opacity: 0;
-      background-color: rgba(0, 0, 0, .3);
-      width: 100%;
-      height: 100%;
-      border-radius: 4px 4px 0 0;
-      padding-top: 92px;
-      text-align: center;
-      transition: top .28s ease, opacity .28s ease, height .28s ease;
-      .details-btn {
-        display: inline-block;
-        width: 120px;
-        height: 44px;
-        font-size: 18px;
-        line-height: 44px;
-        border-radius: 22px;
-        border: 1px solid #fff;
-        color: #fff;
-        cursor: pointer;
-      }
+      opacity: 1;
     }
   }
 
-  .thumbnail-panel-cover {
-    flex: 1;
-    position: relative;
-    .image-wrapper {
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      padding: 5px;
-      z-index: 10;
-      img {
-        display: block;
-        width: 100%;
-        height: 100%;
-      }
-    }
-  }
-
-  .page-item-title {
-    height: 36px;
-    line-height: 36px;
-    padding: 0 8px;
-    font-size: 14px;
-  }
-
-  .thumbnail-panel-btn {
-    height: 36px;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    .btn-wrapper {
-      flex: 1;
-      text-align: center;
-    }
-  }
-
-  .unpublish {
+  .header-mask {
     position: absolute;
-    top: 5px;
-    left: 5px;
-    font-size: 12px;
-    display: block;
-    padding: 0 10px;
-    height: 30px;
-    line-height: 30px;
-    background-color: #76838f;
-    color: #fff;
-    border-top-left-radius: 4px;
-    border-bottom-right-radius: 12px;
-    z-index: 10;
-  }
-
-  .page-thumbnail-panel.create {
-    padding: 16px;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.3);
+    width: 100%;
+    height: 100%;
+    border-radius: 4px 4px 0 0;
+    padding-top: 92px;
     text-align: center;
-    .temp-create {
+    transition: top 0.28s ease, opacity 0.28s ease, height 0.28s ease;
+    .details-btn {
       display: inline-block;
+      width: 120px;
+      height: 44px;
+      font-size: 18px;
+      line-height: 44px;
+      border-radius: 22px;
+      border: 1px solid #fff;
+      color: #fff;
+      cursor: pointer;
+    }
+  }
+}
+
+.thumbnail-panel-cover {
+  flex: 1;
+  position: relative;
+  .image-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    padding: 5px;
+    z-index: 10;
+    img {
+      display: block;
       width: 100%;
       height: 100%;
-      border: 1px solid #e6ebed;
-      border-radius: 3px;
-      padding-top: 100px;
-      transition: all 0.28s;
-      cursor: pointer;
-      &:hover {
-        color: $primary;
-        border-color: $primary;
-      }
-    }
-    .null-create {
-      display: inline-block;
-      width: 100%;
-      height: 42px;
-      line-height: 42px;
-      border: 1px solid #4a4e52;
-      transition: all 0.28s;
-      cursor: pointer;
-      &:hover {
-        color: $primary;
-        border-color: $primary;
-      }
     }
   }
+}
+
+.page-item-title {
+  height: 36px;
+  line-height: 36px;
+  padding: 0 8px;
+  font-size: 14px;
+}
+
+.thumbnail-panel-btn {
+  height: 36px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  .btn-wrapper {
+    flex: 1;
+    text-align: center;
+  }
+}
+
+.unpublish {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  font-size: 12px;
+  display: block;
+  padding: 0 10px;
+  height: 30px;
+  line-height: 30px;
+  background-color: #76838f;
+  color: #fff;
+  border-top-left-radius: 4px;
+  border-bottom-right-radius: 12px;
+  z-index: 10;
+}
+
+.page-thumbnail-panel.create {
+  padding: 16px;
+  text-align: center;
+  .temp-create {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    border: 1px solid #e6ebed;
+    border-radius: 3px;
+    padding-top: 100px;
+    transition: all 0.28s;
+    cursor: pointer;
+    &:hover {
+      color: $primary;
+      border-color: $primary;
+    }
+  }
+  .null-create {
+    display: inline-block;
+    width: 100%;
+    height: 42px;
+    line-height: 42px;
+    border: 1px solid #4a4e52;
+    transition: all 0.28s;
+    cursor: pointer;
+    &:hover {
+      color: $primary;
+      border-color: $primary;
+    }
+  }
+}
 </style>

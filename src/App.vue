@@ -5,11 +5,14 @@
 </template>
 <script>
 export default {
-
+  mounted() {
+    console.log(this)
+  }
 }
 </script>
 <style lang="scss">
-html,body{
+html,
+body {
   position: relative;
   height: 100%;
 }
@@ -22,5 +25,4 @@ html,body{
   height: 100%;
   overflow: hidden;
 }
-
 </style>

@@ -3,27 +3,23 @@
     <el-dropdown v-if="isLogined">
       <div class="inline-block">
         <div class="user-head-btn-img">
-          <img :src="userData.avatar || userHeadImage" alt="">
+          <img :src="userData.avatar || userHeadImage" alt="" />
         </div>
         <span class="user-head-btn-name">{{ userData.name }}</span>
       </div>
-      <el-dropdown-menu v-if="isLogined">
-        <el-dropdown-item>
-          <userInfo :user-data="userData" :show-edit="true">
-            <i class="el-icon-user"></i> 个人资料
-          </userInfo>
-        </el-dropdown-item>
-        <el-dropdown-item>
-          <resetPassword>
-            <i class="el-icon-edit"></i> 修改密码
-          </resetPassword>
-        </el-dropdown-item>
-        <el-dropdown-item>
-          <div @click="doLogout">
-            <i class="el-icon-switch-button"></i> 退出登录
-          </div>
-        </el-dropdown-item>
-      </el-dropdown-menu>
+      <template #dropdown>
+        <el-dropdown-menu v-if="isLogined">
+          <el-dropdown-item>
+            <userInfo :user-data="userData" :show-edit="true"> <i class="el-icon-user"></i> 个人资料 </userInfo>
+          </el-dropdown-item>
+          <el-dropdown-item>
+            <resetPassword> <i class="el-icon-edit"></i> 修改密码 </resetPassword>
+          </el-dropdown-item>
+          <el-dropdown-item>
+            <div @click="doLogout"><i class="el-icon-switch-button"></i> 退出登录</div>
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </template>
     </el-dropdown>
     <div v-else class="inline-block">
       <span class="login-btn" @click="goLogin">登录/注册</span>
@@ -32,12 +28,7 @@
 </template>
 
 <script>
-import {
-  ElButton,
-  ElDropdown,
-  ElDropdownMenu,
-  ElDropdownItem
-} from 'element-plus'
+import { ElButton, ElDropdown, ElDropdownMenu, ElDropdownItem } from 'element-plus'
 import resetPassword from '@/components/reset-password'
 import userInfo from '@/components/user-info'
 import userModel from '@/libs/userModel'
@@ -57,6 +48,7 @@ export default {
       userHeadImage: require('@/common/images/headerImage.png')
     }
   },
+
   computed: {
     isLogined() {
       return this.$store.state.user.access_token
@@ -77,37 +69,37 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .user-head-btn-components {
+.user-head-btn-components {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 28px;
+  cursor: pointer;
+  .user-head-btn-img {
     display: inline-block;
     vertical-align: middle;
-    line-height: 28px;
-    cursor: pointer;
-    .user-head-btn-img {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    overflow: hidden;
+    background: #eee;
+    img {
       display: inline-block;
-      vertical-align: middle;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      overflow: hidden;
-      background: #eee;
-      img{
-        display: inline-block;
-        width: 100%;
-        height: 100%;
-      }
-    }
-    .user-head-btn-name {
-      font-size: 14px;
-      margin-left: 8px;
+      width: 100%;
+      height: 100%;
     }
   }
-  .login-btn{
-    text-decoration:underline;
-    text-underline: #999;
-    cursor: pointer;
-    &:hover{
-      color: black;
-      text-underline: #000;
-    }
+  .user-head-btn-name {
+    font-size: 14px;
+    margin-left: 8px;
   }
+}
+.login-btn {
+  text-decoration: underline;
+  text-underline: #999;
+  cursor: pointer;
+  &:hover {
+    color: black;
+    text-underline: #000;
+  }
+}
 </style>
