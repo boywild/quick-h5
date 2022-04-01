@@ -2,7 +2,7 @@
   <div class="page page-login">
     <div class="login-page-inner">
       <p class="title">Quark H5</p>
-      <el-form ref="loginForm" :model="formData" :rules="formRules" label-width="0px">
+      <el-form ref="loginForm" :model="formData" :rules="formRules" size="large" label-width="0px">
         <el-form-item prop="username">
           <el-input v-model="formData.username" name="userName" placeholder="请输入用户名" @keyup.enter="doLogin">
             <template #prefix>

@@ -14,17 +14,17 @@
     </div>
     <div v-if="btnList.length" class="border-T thumbnail-panel-btn">
       <div v-if="btnList.includes('edit')" class="btn-wrapper">
-        <el-button type="text" size="small" @click="edit">编辑</el-button>
+        <el-button type="text" @click="edit">编辑</el-button>
       </div>
       <div v-if="btnList.includes('useTemplate')" class="btn-wrapper">
-        <el-button type="text" size="small" @click="copyPage">使用模板</el-button>
+        <el-button type="text" @click="copyPage">使用模板</el-button>
       </div>
       <div v-if="btnList.includes('copyTemplate')" class="btn-wrapper">
-        <el-button type="text" size="small" @click="copyPage">复制</el-button>
+        <el-button type="text" @click="copyPage">复制</el-button>
       </div>
       <div v-if="showMoreBtn" class="btn-wrapper">
         <el-dropdown placement="top-start" @command="command">
-          <el-button type="text" size="small">更多 <i class="el-icon-more-outline"></i></el-button>
+          <el-button type="text">更多 <i class="el-icon-more-outline"></i></el-button>
           <template #dropdown>
             <el-dropdown-menu>
               <template v-for="(item, index) in operationDataList">

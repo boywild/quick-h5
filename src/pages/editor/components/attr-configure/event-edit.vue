@@ -4,7 +4,7 @@
       <div v-if="activeElementUUID" class="attr-edit-inner">
         <div class="animate-edit-btn-wrapper">
           <el-dropdown>
-            <el-button type="primary" size="small"> 添加事件<i class="el-icon-arrow-down el-icon--right"></i> </el-button>
+            <el-button type="primary"> 添加事件<i class="el-icon-arrow-down el-icon--right"></i> </el-button>
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item v-for="(item, index) in eventTypeList" :key="index">

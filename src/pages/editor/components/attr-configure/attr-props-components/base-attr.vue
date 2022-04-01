@@ -6,12 +6,7 @@
         <div class="attr-item-edit-wrapper marginB15">
           <p class="attr-item-title">快捷定位：</p>
           <div class="sizeAndPosition-wrapper">
-            <div
-              v-for="item in alignTypeList"
-              :key="item.type"
-              class="align-type-item"
-              @click="changeAlignType(item.type)"
-            >
+            <div v-for="item in alignTypeList" :key="item.type" class="align-type-item" @click="changeAlignType(item.type)">
               <el-tooltip effect="dark" :content="item.title" placement="bottom">
                 <i :class="[item.icon]"></i>
               </el-tooltip>
@@ -21,21 +16,11 @@
         <div class="attr-item-edit-wrapper">
           <p class="attr-item-title">尺寸：</p>
           <div class="col-2 attr-item-edit-input">
-            <el-input-number
-              v-model="activeElement.commonStyle.width"
-              size="small"
-              controls-position="right"
-              :min="0"
-            />
+            <el-input-number v-model="activeElement.commonStyle.width" controls-position="right" :min="0" />
             <div class="attr-item-edit-input-des">宽度</div>
           </div>
           <div class="col-2 attr-item-edit-input">
-            <el-input-number
-              v-model="activeElement.commonStyle.height"
-              size="small"
-              controls-position="right"
-              :min="0"
-            />
+            <el-input-number v-model="activeElement.commonStyle.height" controls-position="right" :min="0" />
             <div class="attr-item-edit-input-des">高度</div>
           </div>
         </div>
@@ -62,19 +47,11 @@
         <div class="attr-item-edit-wrapper">
           <p class="attr-item-title">位置：</p>
           <div class="col-2 attr-item-edit-input">
-            <el-input-number
-              v-model="activeElement.commonStyle.top"
-              size="small"
-              controls-position="right"
-            />
+            <el-input-number v-model="activeElement.commonStyle.top" controls-position="right" />
             <div class="attr-item-edit-input-des">X</div>
           </div>
           <div class="col-2 attr-item-edit-input">
-            <el-input-number
-              v-model="activeElement.commonStyle.left"
-              size="small"
-              controls-position="right"
-            />
+            <el-input-number v-model="activeElement.commonStyle.left" controls-position="right" />
             <div class="attr-item-edit-input-des">Y</div>
           </div>
         </div>
@@ -86,8 +63,8 @@
               show-input
               :min="-180"
               :max="180"
-              :marks="{0:'',90:'', '-90':''}"
-              input-size="small"
+              :marks="{ 0: '', 90: '', '-90': '' }"
+              input-
               @change="throttleAddHistory"
             ></el-slider>
           </div>
@@ -101,7 +78,6 @@
           <div class="col-2 attr-item-edit-input">
             <el-input-number
               v-model="activeElement.commonStyle.borderWidth"
-              size="small"
               controls-position="right"
               :min="0"
               @change="throttleAddHistory"
@@ -109,19 +85,11 @@
             <div class="attr-item-edit-input-des">尺寸</div>
           </div>
           <div class="col-3 attr-item-edit-input">
-            <el-color-picker
-              v-model="activeElement.commonStyle.borderColor"
-              size="small"
-              @change="throttleAddHistory"
-            ></el-color-picker>
+            <el-color-picker v-model="activeElement.commonStyle.borderColor" @change="throttleAddHistory"></el-color-picker>
             <div class="attr-item-edit-input-des">颜色</div>
           </div>
           <div class="col-2 attr-item-edit-input">
-            <el-select
-              v-model="activeElement.commonStyle.borderStyle"
-              size="small"
-              @change="throttleAddHistory"
-            >
+            <el-select v-model="activeElement.commonStyle.borderStyle" @change="throttleAddHistory">
               <el-option v-for="item in borderStyleList" :key="item.value" :label="item.label" :value="item.value" />
             </el-select>
             <div class="attr-item-edit-input-des">样式</div>
@@ -132,7 +100,6 @@
           <div class="col-2 attr-item-edit-input">
             <el-input-number
               v-model="activeElement.commonStyle.borderRadius"
-              size="small"
               controls-position="right"
               :min="0"
               @change="throttleAddHistory"
@@ -146,7 +113,6 @@
           <div class="col-2 attr-item-edit-input">
             <el-input-number
               v-model="activeElement.commonStyle.paddingTop"
-              size="small"
               controls-position="right"
               :min="0"
               @change="throttleAddHistory"
@@ -155,7 +121,6 @@
           <div class="col-2 attr-item-edit-input">
             <el-input-number
               v-model="activeElement.commonStyle.paddingBottom"
-              size="small"
               controls-position="right"
               :min="0"
               @change="throttleAddHistory"
@@ -167,7 +132,6 @@
           <div class="col-2 attr-item-edit-input">
             <el-input-number
               v-model="activeElement.commonStyle.paddingLeft"
-              size="small"
               controls-position="right"
               :min="0"
               @change="throttleAddHistory"
@@ -176,7 +140,6 @@
           <div class="col-2 attr-item-edit-input">
             <el-input-number
               v-model="activeElement.commonStyle.paddingRight"
-              size="small"
               controls-position="right"
               :min="0"
               @change="throttleAddHistory"
@@ -189,34 +152,29 @@
         <div class="attr-item-edit-wrapper">
           <p class="attr-item-title">阴影位置：</p>
           <div class="col-2 attr-item-edit-input">
-            <el-input-number v-model="boxShadow.h" size="small" controls-position="right" @change="boxShadowChange" />
+            <el-input-number v-model="boxShadow.h" controls-position="right" @change="boxShadowChange" />
             <div class="attr-item-edit-input-des">水平阴影位置</div>
           </div>
           <div class="col-2 attr-item-edit-input">
-            <el-input-number v-model="boxShadow.v" size="small" controls-position="right" @change="boxShadowChange" />
+            <el-input-number v-model="boxShadow.v" controls-position="right" @change="boxShadowChange" />
             <div class="attr-item-edit-input-des">垂直阴影位置</div>
           </div>
         </div>
         <div class="attr-item-edit-wrapper">
           <p class="attr-item-title">阴影位置：</p>
           <div class="col-2 attr-item-edit-input">
-            <el-input-number v-model="boxShadow.blur" size="small" controls-position="right" @change="boxShadowChange" />
+            <el-input-number v-model="boxShadow.blur" controls-position="right" @change="boxShadowChange" />
             <div class="attr-item-edit-input-des">水平阴影位置</div>
           </div>
           <div class="col-2 attr-item-edit-input">
-            <el-input-number
-              v-model="boxShadow.spread"
-              size="small"
-              controls-position="right"
-              @change="boxShadowChange"
-            />
+            <el-input-number v-model="boxShadow.spread" controls-position="right" @change="boxShadowChange" />
             <div class="attr-item-edit-input-des">垂直阴影位置</div>
           </div>
         </div>
         <div class="attr-item-edit-wrapper">
           <p class="attr-item-title">阴影颜色：</p>
           <div class="attr-item-edit-input">
-            <el-color-picker v-model="boxShadow.color" size="small" @change="boxShadowChange"></el-color-picker>
+            <el-color-picker v-model="boxShadow.color" @change="boxShadowChange"></el-color-picker>
           </div>
         </div>
       </el-collapse-item>
@@ -224,13 +182,7 @@
         <div class="attr-item-edit-wrapper">
           <p class="attr-item-title">字体大小：</p>
           <div class="col-2 attr-item-edit-input">
-            <el-input-number
-              v-model="activeElement.commonStyle.fontSize"
-              size="small"
-              controls-position="right"
-              :min="0"
-              @change="throttleAddHistory"
-            />
+            <el-input-number v-model="activeElement.commonStyle.fontSize" controls-position="right" :min="0" @change="throttleAddHistory" />
           </div>
         </div>
         <div class="attr-item-edit-wrapper">
@@ -238,7 +190,6 @@
           <div class="col-2 attr-item-edit-input">
             <el-input-number
               v-model="activeElement.commonStyle.fontWeight"
-              size="small"
               controls-position="right"
               :min="300"
               :step="100"
@@ -252,7 +203,6 @@
           <div class="col-2 attr-item-edit-input">
             <el-input-number
               v-model="activeElement.commonStyle.lineHeight"
-              size="small"
               controls-position="right"
               :min="0"
               :step="0.1"
@@ -265,7 +215,6 @@
           <div class="col-2 attr-item-edit-input">
             <el-input-number
               v-model="activeElement.commonStyle.letterSpacing"
-              size="small"
               controls-position="right"
               :min="0"
               @change="throttleAddHistory"
@@ -296,11 +245,7 @@
         <div class="attr-item-edit-wrapper">
           <p class="attr-item-title">字体颜色：</p>
           <div class="attr-item-edit-input">
-            <el-color-picker
-              v-model="activeElement.commonStyle.color"
-              size="small"
-              @change="throttleAddHistory"
-            ></el-color-picker>
+            <el-color-picker v-model="activeElement.commonStyle.color" @change="throttleAddHistory"></el-color-picker>
           </div>
         </div>
       </el-collapse-item>
@@ -310,7 +255,6 @@
           <div class="attr-item-edit-input no-top">
             <el-color-picker
               v-model="activeElement.commonStyle.backgroundColor"
-              size="small"
               :show-alpha="true"
               @change="throttleAddHistory"
             ></el-color-picker>
@@ -328,7 +272,6 @@
           <div class="col-2 attr-item-edit-input">
             <el-input-number
               v-model="activeElement.commonStyle.opacity"
-              size="small"
               controls-position="right"
               :min="0"
               :max="1"
@@ -354,45 +297,57 @@ export default {
   data() {
     return {
       activeNames: ['1'],
-      alignTypeList: [{
-        title: '左对齐',
-        icon: 'iconfont iconzuoduiqi',
-        type: 'l'
-      }, {
-        title: '上对齐',
-        icon: 'iconfont iconshangduiqi',
-        type: 't'
-      }, {
-        title: '右对齐',
-        icon: 'iconfont iconyouduiqi',
-        type: 'r'
-      }, {
-        title: '下对齐',
-        icon: 'iconfont iconxiaduiqi',
-        type: 'b'
-      }, {
-        title: '垂直居中对齐',
-        icon: 'iconfont iconchuizhijuzhongduiqi',
-        type: 'tb'
-      }, {
-        title: '水平居中对齐',
-        icon: 'iconfont iconshuipingjuzhongduiqi',
-        type: 'lr'
-      }],
+      alignTypeList: [
+        {
+          title: '左对齐',
+          icon: 'iconfont iconzuoduiqi',
+          type: 'l'
+        },
+        {
+          title: '上对齐',
+          icon: 'iconfont iconshangduiqi',
+          type: 't'
+        },
+        {
+          title: '右对齐',
+          icon: 'iconfont iconyouduiqi',
+          type: 'r'
+        },
+        {
+          title: '下对齐',
+          icon: 'iconfont iconxiaduiqi',
+          type: 'b'
+        },
+        {
+          title: '垂直居中对齐',
+          icon: 'iconfont iconchuizhijuzhongduiqi',
+          type: 'tb'
+        },
+        {
+          title: '水平居中对齐',
+          icon: 'iconfont iconshuipingjuzhongduiqi',
+          type: 'lr'
+        }
+      ],
       // 'none', 'solid', 'dashed', 'dotted', 'double'
-      borderStyleList: [{
-        label: '实线',
-        value: 'solid'
-      }, {
-        label: '虚线',
-        value: 'dashed'
-      }, {
-        label: '点状',
-        value: 'dotted'
-      }, {
-        label: '双线',
-        value: 'double'
-      }],
+      borderStyleList: [
+        {
+          label: '实线',
+          value: 'solid'
+        },
+        {
+          label: '虚线',
+          value: 'dashed'
+        },
+        {
+          label: '点状',
+          value: 'dotted'
+        },
+        {
+          label: '双线',
+          value: 'double'
+        }
+      ],
       boxShadow: {
         h: 0,
         v: 0,
@@ -404,17 +359,12 @@ export default {
   },
   computed: {
     ...mapState({
-      projectData: state => state.editor.projectData,
-      activePageUUID: state => state.editor.activePageUUID,
-      activeElementUUID: state => state.editor.activeElementUUID,
-      activeAttrEditCollapse: state => state.editor.activeAttrEditCollapse
+      projectData: (state) => state.editor.projectData,
+      activePageUUID: (state) => state.editor.activePageUUID,
+      activeElementUUID: (state) => state.editor.activeElementUUID,
+      activeAttrEditCollapse: (state) => state.editor.activeAttrEditCollapse
     }),
-    ...mapGetters([
-      'currentPageIndex',
-      'activeElementIndex',
-      'activeElement',
-      'activePage'
-    ])
+    ...mapGetters(['currentPageIndex', 'activeElementIndex', 'activeElement', 'activePage'])
   },
   watch: {
     activeElementUUID() {
@@ -436,16 +386,16 @@ export default {
   },
   methods: {
     /**
-			 * 纪录一条历史纪录
-			 * */
+     * 纪录一条历史纪录
+     * */
     addHistory() {
       // console.log('common style change addHistoryCache')
       this.$store.dispatch('addHistoryCache')
     },
     /**
-			 *
-			 * @param type
-			 */
+     *
+     * @param type
+     */
     changeAlignType(type) {
       let canvasW = this.$config.canvasH5Width
       let canvasH = this.$config.canvasH5Height
@@ -474,8 +424,8 @@ export default {
       }
     },
     /**
-			 * 初始化阴影编辑对象
-			 */
+     * 初始化阴影编辑对象
+     */
     initBoxShadowEdit() {
       let boxShadow = this.activeElement.commonStyle.boxShadow
       let boxShadowEditConfig = {
@@ -505,16 +455,16 @@ export default {
       this.activeElement.commonStyle.boxShadow = str
     },
     /**
-			 * 字体样式设置对齐方式
-			 * @param str
-			 */
+     * 字体样式设置对齐方式
+     * @param str
+     */
     handleTextAlignClick(str) {
       this.activeElement.commonStyle.textAlign = str
     },
     /**
-			 * 字体样式设置对齐方式
-			 * @param str
-			 */
+     * 字体样式设置对齐方式
+     * @param str
+     */
     handleResizeClick(type) {
       if (type.includes('w')) {
         this.activeElement.commonStyle.left = 0
@@ -530,83 +480,83 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .sizeAndPosition-wrapper {
-    display: flex;
-    width: 100%;
-  }
+.sizeAndPosition-wrapper {
+  display: flex;
+  width: 100%;
+}
 
-  .align-type-item {
-    flex: 1;
-    cursor: pointer;
-    text-align: center;
-    &.clearFlex {
-      width: 42px;
-      flex: none;
-    }
+.align-type-item {
+  flex: 1;
+  cursor: pointer;
+  text-align: center;
+  &.clearFlex {
+    width: 42px;
+    flex: none;
+  }
+  i {
+    line-height: 1;
+    display: inline-block;
+    padding: 6px;
+    border-radius: 4px;
+    background: rgba(37, 165, 137, 0.08);
+  }
+  &:hover {
     i {
-      line-height: 1;
-      display: inline-block;
-      padding: 6px;
-      border-radius: 4px;
-      background: rgba(37, 165, 137, 0.08);
-    }
-    &:hover {
-      i {
-        color: white;
-        background: $primary;
-      }
+      color: white;
+      background: $primary;
     }
   }
+}
 
-  .attr-item-edit-wrapper {
-    padding-left: 18px;
-    display: flex;
-    width: 100%;
-    text-align: center;
-    padding-bottom: 10px;
-    .attr-item-title {
-      text-align: left;
-      min-width: 60px;
-      font-size: 12px;
+.attr-item-edit-wrapper {
+  padding-left: 18px;
+  display: flex;
+  width: 100%;
+  text-align: center;
+  padding-bottom: 10px;
+  .attr-item-title {
+    text-align: left;
+    min-width: 60px;
+    font-size: 12px;
+  }
+  .attr-item-edit-input {
+    &.col-2 {
+      width: 90px;
+      margin-left: 10px;
     }
-    .attr-item-edit-input {
-      &.col-2 {
-        width: 90px;
-        margin-left: 10px;
-      }
-      &.col-1 {
-        width: 250px;
-      }
-      &.col-3 {
-        width: 60px;
-        margin-left: 10px;
-      }
-      &.col-4 {
-        width: 50px;
-        margin-left: 10px;
-      }
-      .attr-item-edit-input-des {
-        text-align: center;
-        line-height: 1;
-        margin-top: 2px;
-        font-size: 12px;
-        color: $gray;
-      }
+    &.col-1 {
+      width: 250px;
+    }
+    &.col-3 {
+      width: 60px;
+      margin-left: 10px;
+    }
+    &.col-4 {
+      width: 50px;
+      margin-left: 10px;
+    }
+    .attr-item-edit-input-des {
+      text-align: center;
+      line-height: 1;
+      margin-top: 2px;
+      font-size: 12px;
+      color: $gray;
     }
   }
+}
 </style>
 <style lang="scss">
-  .attr-item-edit-wrapper {
-    .el-input-number.is-controls-right .el-input__inner {
-      padding-left: 2px;
-      padding-right: 32px;
-      width: 90px;
-    }
-    .el-input-number--mini {
-      width: 90px;
-    }
-    .el-slider__runway.show-input {
-      margin-right: 108px;
-    }
+.attr-item-edit-wrapper {
+  .el-input-number.is-controls-right .el-input__inner {
+    padding-left: 2px;
+    padding-right: 32px;
+    width: 90px;
   }
+  .el-input-number--mini {
+    width: 90px;
+  }
+  .el-slider__runway.show-input {
+    margin-right: 108px;
+  }
+}
 </style>

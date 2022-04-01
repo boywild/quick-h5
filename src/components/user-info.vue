@@ -35,14 +35,14 @@
           <el-form-item label="昵称：">
             <div v-if="!editName">
               <span class="inline-block marginR20">{{ userData.name }}</span>
-              <el-button v-if="showEdit" size="small" icon="el-icon-edit" circle @click="showEditName(true)"></el-button>
+              <el-button v-if="showEdit" icon="el-icon-edit" circle @click="showEditName(true)"></el-button>
             </div>
             <div v-else class="edit-name-wrapper">
               <div class="edit-name-input">
                 <el-input v-model="name"></el-input>
               </div>
-              <el-button size="small" icon="el-icon-close" circle @click="showEditName(false)"></el-button>
-              <el-button type="success" size="small" icon="el-icon-check" circle @click="saveNickName"></el-button>
+              <el-button icon="el-icon-close" circle @click="showEditName(false)"></el-button>
+              <el-button type="success" icon="el-icon-check" circle @click="saveNickName"></el-button>
             </div>
           </el-form-item>
           <el-form-item label="用户名：">
@@ -73,6 +73,7 @@ export default {
     [ElUpload.name]: ElUpload,
     [ElTooltip.name]: ElTooltip
   },
+
   props: {
     userData: {
       type: Object,
@@ -85,6 +86,7 @@ export default {
       default: false
     }
   },
+  emits: ['close'],
   data() {
     return {
       loading: false,

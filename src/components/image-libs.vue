@@ -10,7 +10,7 @@
             accept="jpg,png,gif"
             :show-file-list="false"
           >
-            <el-button size="small" type="primary">点击上传</el-button>
+            <el-button  type="primary">点击上传</el-button>
             <template #tip>
               <span class="el-upload__tip marginL20">只能上传jpg/png/gif文件，且不超过2M</span>
             </template>

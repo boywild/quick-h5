@@ -9,7 +9,7 @@
       <!--加载页-->
       <!--</div>-->
       <!--<div class="pull-right custom-loading-btn">-->
-      <!--<el-button size="small">自定义设置</el-button>-->
+      <!--<el-button >自定义设置</el-button>-->
       <!--</div>-->
       <!--</div>-->
       <div
@@ -46,7 +46,7 @@
       </div>
     </el-scrollbar>
     <div class="bottom-btn-wrapper">
-      <el-button type="primary" size="small" @click="addPage()">新增空页面</el-button>
+      <el-button type="primary" @click="addPage()">新增空页面</el-button>
     </div>
   </div>
 </template>
