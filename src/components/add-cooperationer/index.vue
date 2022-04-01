@@ -1,6 +1,6 @@
 <template>
   <el-dialog
-    v-model:visible="visible"
+    v-model="visible"
     title="协作人管理"
     width="650px"
   >

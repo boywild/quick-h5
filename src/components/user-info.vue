@@ -5,8 +5,8 @@
     </div>
     <el-dialog
       v-if="dialogleVisible"
-      v-model:visible="dialogleVisible"
-      class="page-dialog-wrapper"
+      v-model="dialogleVisible"
+      custom-class="page-dialog-wrapper"
       title=""
       width="400px"
       append-to-body
@@ -52,7 +52,8 @@
             <div>{{ userData.email }}</div>
           </el-form-item>
           <el-form-item label="注册时间：">
-            <div>{{ $filters.formatTime(userData.created) }}</div>
+            <!-- <div>{{ $filters.formatTime(userData.created) }}</div> -->
+            <div>{{ userData.created }}</div>
           </el-form-item>
         </el-form>
       </div>

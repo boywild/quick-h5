@@ -1,5 +1,5 @@
 <template>
-  <el-dialog v-model:visible="dialogVisible" class="components-image-libs-wrapper" title="我的图片" width="600px">
+  <el-dialog v-model="dialogVisible" custom-class="components-image-libs-wrapper" title="我的图片" width="600px">
     <div class="components-image-libs">
       <div class="image-lib-side-bar"></div>
       <div class="image-lib-inner">

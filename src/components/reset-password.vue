@@ -5,8 +5,8 @@
     </div>
     <el-dialog
       v-if="dialogleVisible"
-      v-model:visible="dialogleVisible"
-      class="page-dialog-wrapper"
+      v-model="dialogleVisible"
+      custom-class="page-dialog-wrapper"
       title="修改密码"
       width="480px"
       append-to-body

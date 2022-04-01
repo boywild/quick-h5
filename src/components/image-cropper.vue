@@ -11,7 +11,7 @@
         <p class="cropper-res-img-title">更换主图</p>
       </el-upload>
     </div>
-    <el-dialog v-model:visible="dialogVisible" title="图片裁剪" append-to-body center width="400px">
+    <el-dialog v-model="dialogVisible" title="图片裁剪" append-to-body center width="400px">
       <div class="cropper-wrapper">
         <vueCropper
           ref="cropper"
